@@ -8,9 +8,9 @@
     "node": ">=22.0.0 <23"
   },
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/core/server.ts",
     "build": "tsc -p .",
-    "start": "node dist/index.js",
+    "start": "node -r module-alias/register dist/src/core/server.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .ts",
@@ -19,12 +19,24 @@
     "format:write": "prettier --write ."
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.17.1",
+    "morgan": "^1.10.1",
+    "zod": "^4.0.17"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cookie-parser": "^1.4.9",
+    "@types/cors": "^2.8.19",
     "@types/express": "^4.17.21",
     "@types/jest": "^30.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/morgan": "^1.9.10",
     "@types/node": "^22.5.4",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
@@ -34,10 +46,18 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-prettier": "^5.2.1",
     "jest": "^30.0.5",
+    "module-alias": "^2.2.3",
     "prettier": "^3.3.3",
     "ts-jest": "^29.4.1",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.4"
+  },
+  "_moduleAliases": {
+    "@": "dist",
+    "configs": "dist/configs",
+    "middlewares": "dist/middlewares",
+    "utils": "dist/utils"
   },
   "resolutions": {
     "get-intrinsic": "1.2.0",

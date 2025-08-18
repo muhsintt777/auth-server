@@ -4,6 +4,13 @@
     "lib": ["ES2022"],
     "module": "commonjs",
     "moduleResolution": "node",
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"],
+      "configs/*": ["configs/*"],
+      "middlewares/*": ["middlewares/*"],
+      "utils/*": ["utils/*"]
+    },
     "outDir": "dist",
     "rootDir": "src",
     "strict": true,
