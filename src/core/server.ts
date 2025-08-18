@@ -26,7 +26,7 @@ async function startServer() {
       console.log(`Server started at ${port}`);
     });
   } catch (err) {
-    console.error('Unable to start server');
+    console.log('Unable to start server');
     process.exit(1);
   }
 }
