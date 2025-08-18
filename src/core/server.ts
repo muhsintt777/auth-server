@@ -1,10 +1,13 @@
-import * as dotenv from 'dotenv';
-dotenv.config();
-
 import { existsSync, mkdirSync } from 'fs';
-import { ENV } from 'configs/env';
+
+import * as dotenv from 'dotenv';
+
 import { connectDB } from 'configs/db';
+import { ENV } from 'configs/env';
+
 import { app } from './app';
+
+dotenv.config();
 
 const TEMP_DIR = 'public/temp';
 const port = ENV.PORT || 3500;
@@ -23,7 +26,7 @@ async function startServer() {
       console.log(`Server started at ${port}`);
     });
   } catch (err) {
-    console.error('Unable to start server: ', err.message);
+    console.error('Unable to start server');
     process.exit(1);
   }
 }
