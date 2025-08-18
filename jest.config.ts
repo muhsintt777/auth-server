@@ -10,6 +10,7 @@ const config: Config = {
   testMatch: ['**/test/**/*.test.ts'],
   moduleFileExtensions: ['ts', 'js', 'json'],
   roots: ['<rootDir>'],
+  moduleDirectories: ['node_modules', '<rootDir>/src'],
   moduleNameMapper: pathsToModuleNameMapper(
     tsconfig.compilerOptions.paths || {},
     {
