@@ -1,5 +1,6 @@
+import { sign, verify, type SignOptions } from 'jsonwebtoken';
+
 import { ENV } from 'configs/env';
-import jwt from 'jsonwebtoken';
 
 import { CustomError } from './error';
 
@@ -13,14 +14,15 @@ interface RefreshTokenData {
 
 export class Token {
   static createAccessToken(payload: AccessTokenData) {
-    return jwt.sign(payload, ENV.ACCESS_TOKEN_KEY, {
-      expiresIn: ENV.ACCESS_TOKEN_EXPIRY,
-    });
+    const options: SignOptions = {
+      expiresIn: ENV.ACCESS_TOKEN_EXPIRY as SignOptions['expiresIn'],
+    };
+    return sign(payload, ENV.ACCESS_TOKEN_KEY, options) as string;
   }
 
   static verifyAccessToken(token: string) {
     try {
-      const decoded = jwt.verify(token, ENV.ACCESS_TOKEN_KEY);
+      const decoded = verify(token, ENV.ACCESS_TOKEN_KEY);
       return decoded as AccessTokenData;
     } catch (error) {
       throw new CustomError('AUTH_TOKEN_EXPIRED', 'Token expired');
@@ -28,14 +30,15 @@ export class Token {
   }
 
   static createRefreshToken(payload: RefreshTokenData) {
-    return jwt.sign(payload, ENV.REFRESH_TOKEN_KEY, {
-      expiresIn: ENV.REFRESH_TOKEN_EXPIRY,
-    });
+    const options: SignOptions = {
+      expiresIn: ENV.REFRESH_TOKEN_EXPIRY as SignOptions['expiresIn'],
+    };
+    return sign(payload, ENV.REFRESH_TOKEN_KEY, options) as string;
   }
 
   static verifyRefreshToken(token: string) {
     try {
-      const decoded = jwt.verify(token, ENV.REFRESH_TOKEN_KEY);
+      const decoded = verify(token, ENV.REFRESH_TOKEN_KEY);
       return decoded as RefreshTokenData;
     } catch (error) {
       throw new CustomError('AUTH_UNAUTHORIZED', 'Invalid token');
