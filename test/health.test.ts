@@ -1,7 +1,6 @@
-import { createServer } from 'http';
 import type { AddressInfo } from 'net';
 import { createApp } from '../src/app';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from '@jest/globals';
 
 describe('GET /health', () => {
   it('returns ok', async () => {
