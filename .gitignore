@@ -14,5 +14,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # Editor
-.vscode/
 .DS_Store
