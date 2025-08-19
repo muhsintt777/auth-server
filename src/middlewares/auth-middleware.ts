@@ -1,13 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 
 import { CustomError } from 'utils/error';
-import { AccessTokenData, Token } from 'utils/token';
+import { Token } from 'utils/token';
 
-declare global {
-  namespace Express {
-    interface Request {
-      token?: AccessTokenData;
-    }
+declare module 'express-serve-static-core' {
+  interface Request {
+    token?: import('utils/token').AccessTokenData;
   }
 }
 
