@@ -1,5 +1,5 @@
 import { isValidObjectId } from 'mongoose';
-import { z, ZodError } from 'zod';
+import { ZodError } from 'zod';
 
 import { CustomError } from './error';
 
