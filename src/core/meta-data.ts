@@ -1,5 +1,6 @@
-import path from 'path';
 import { readFileSync } from 'fs';
+import path from 'path';
+
 import { Request, Response } from 'express';
 
 export const metaDataHandler = (req: Request, res: Response) => {

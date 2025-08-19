@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+
 import { CustomError } from 'utils/error';
 import { AccessTokenData, Token } from 'utils/token';
 
