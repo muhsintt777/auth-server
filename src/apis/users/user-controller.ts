@@ -7,7 +7,7 @@ import { CreateUserReqSchema, UserIdSchema } from './user-validation';
 
 export class UserController {
   static async getCurrentUser(req: Request, res: Response) {
-    const userID = req.token?.userId!;
+    const userID = req.token?.userId as string;
     const result = await UserService.getUser(userID);
     res.status(200).json(new ApiResponse(result));
   }
@@ -19,16 +19,9 @@ export class UserController {
   }
 
   static async createUser(req: Request, res: Response) {
-    const { email, username, password, fullName } = CreateUserReqSchema.parse(
-      req.body,
-    );
+    const { email, password, fullName } = CreateUserReqSchema.parse(req.body);
 
-    const userID = await UserService.createUser(
-      email,
-      username,
-      password,
-      fullName,
-    );
+    const userID = await UserService.createUser(email, password, fullName);
 
     res.status(201).json(new ApiResponse({ id: userID }, 'User created'));
   }
