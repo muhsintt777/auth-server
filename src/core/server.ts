@@ -1,13 +1,12 @@
 import { existsSync, mkdirSync } from 'fs';
 
 import * as dotenv from 'dotenv';
+dotenv.config();
 
 import { connectDB } from 'configs/db';
 import { ENV } from 'configs/env';
 
 import { app } from './app';
-
-dotenv.config();
 
 const TEMP_DIR = 'public/temp';
 const port = ENV.PORT || 3500;
