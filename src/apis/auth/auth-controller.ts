@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
+
 import { ENV } from 'configs/env';
 import { ApiResponse } from 'utils/api-response';
-import { Token } from 'utils/token';
-import { LoginReqSchema } from './auth-validation';
-import { AuthService } from './auth-service';
 import { CustomError } from 'utils/error';
+import { Token } from 'utils/token';
+
+import { AuthService } from './auth-service';
+import { LoginReqSchema } from './auth-validation';
 
 const COOKIE_EXPIRY = Number(ENV.COOKIE_EXPIRY_IN_DAYS) * 24 * 60 * 60 * 1000; //in days
 
