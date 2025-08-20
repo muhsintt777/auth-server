@@ -15,16 +15,4 @@ router.get(
   asyncHandler(UserController.getCurrentUser),
 );
 
-// router.get(
-//   '/:id',
-//   asyncHandler(AuthMiddleware.verifyToken),
-//   asyncHandler(UserController.getUser),
-// );
-
-// router.delete(
-//   '/:id',
-//   asyncHandler(AuthMiddleware.verifyToken),
-//   asyncHandler(UserController.deleteUser),
-// );
-
 export { router as userRouter };
