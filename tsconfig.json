@@ -7,7 +7,9 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"],
+      "apis/*": ["apis/*"],
       "configs/*": ["configs/*"],
+      "core/*": ["core/*"],
       "middlewares/*": ["middlewares/*"],
       "utils/*": ["utils/*"]
     },
