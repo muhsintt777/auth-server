@@ -1,4 +1,3 @@
-import { User } from 'apis/users/user';
 import { UserModel } from 'apis/users/user-model';
 import { Crypto } from 'utils/crypto';
 import { CustomError } from 'utils/error';
@@ -10,35 +9,18 @@ interface EmailLogin {
   password: string;
 }
 
-interface UsernameLogin {
-  type: 'USERNAME';
-  username: string;
-  password: string;
-}
-
-type LoginParams = EmailLogin | UsernameLogin;
+type LoginParams = EmailLogin;
 
 export class AuthService {
   static async login(loginDetails: LoginParams) {
-    const { type } = loginDetails;
-    let user: User | null = null;
-    switch (type) {
-      case 'EMAIL':
-        user = await UserModel.findOne({ email: loginDetails.email });
-        break;
+    const { email, password } = loginDetails;
+    const user = await UserModel.findOne({ email });
 
-      case 'USERNAME':
-        user = await UserModel.findOne({ username: loginDetails.username });
-        break;
-    }
     if (!user) {
       throw new CustomError('AUTH_UNAUTHORIZED', 'Invalid credentials');
     }
 
-    const isPasswordValid = Crypto.compare(
-      user.password,
-      loginDetails.password,
-    );
+    const isPasswordValid = Crypto.compare(user.password, password);
     if (!isPasswordValid) {
       throw new CustomError('AUTH_UNAUTHORIZED', 'Invalid credentials');
     }

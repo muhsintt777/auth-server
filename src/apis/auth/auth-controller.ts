@@ -12,34 +12,29 @@ const COOKIE_EXPIRY = Number(ENV.COOKIE_EXPIRY_IN_DAYS) * 24 * 60 * 60 * 1000; /
 
 export class AuthController {
   static async login(req: Request, res: Response) {
-    const { email, username, password } = LoginReqSchema.parse(req.body);
+    const { email, password } = LoginReqSchema.parse(req.body);
 
-    let tokens: { accessToken: string; refreshToken: string };
-    if (email) {
-      tokens = await AuthService.login({ type: 'EMAIL', email, password });
-    } else if (username) {
-      tokens = await AuthService.login({
-        type: 'USERNAME',
-        username,
-        password,
-      });
+    if (!email) {
+      throw new CustomError('AUTH_UNAUTHORIZED', 'Email is required');
     }
+
+    const tokens = await AuthService.login({ type: 'EMAIL', email, password });
 
     res
       .status(200)
-      .cookie('refreshToken', tokens!.refreshToken, {
+      .cookie('refreshToken', tokens.refreshToken, {
         secure: true,
         sameSite: 'none',
         httpOnly: true,
         maxAge: COOKIE_EXPIRY,
       })
-      .cookie('accessToken', tokens!.accessToken, {
+      .cookie('accessToken', tokens.accessToken, {
         secure: true,
         sameSite: 'none',
         httpOnly: true,
         maxAge: COOKIE_EXPIRY,
       })
-      .json(new ApiResponse(tokens!, 'Login success'));
+      .json(new ApiResponse(tokens, 'Login success'));
   }
 
   static async refreshToken(req: Request, res: Response) {
@@ -66,7 +61,11 @@ export class AuthController {
 
   static async logout(req: Request, res: Response) {
     const userID = req.token?.userId;
-    await AuthService.logout(userID!);
+    if (!userID) {
+      throw new CustomError('AUTH_UNAUTHORIZED', 'User ID is required');
+    }
+
+    await AuthService.logout(userID);
 
     res.clearCookie('refreshToken');
     res.clearCookie('accessToken');
