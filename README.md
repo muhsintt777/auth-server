@@ -1,4 +1,4 @@
-# Auth Server (Node + Express + TypeScript)
+# Auth Server (Node + Express + TypeScript + MongoDB)
 
 A comprehensive authentication server built with Node.js, Express, TypeScript, and MongoDB. Features JWT-based authentication with refresh tokens, user management, and secure cookie handling.
 
